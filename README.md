@@ -3,9 +3,9 @@
 
 Run the program in the command line executing the following
 
-<pre> ```go run . 
+<pre> go run . 
 Enter User: user1 
-Enter TypeId: 1 ``` </pre>
+Enter TypeId: 1 </pre>
 
 | TypeId | Name      | Window | Frequency |
 |--------|-----------|--------|-----------|
