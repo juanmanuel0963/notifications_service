@@ -3,7 +3,9 @@
 
 Run the program in the command line executing the following
 
-<pre> ```bash go run . Enter User: user1 Enter TypeId: 1 ``` </pre>
+<pre> ```go run . 
+Enter User: user1 
+Enter TypeId: 1 ``` </pre>
 
 | TypeId | Name      | Window | Frequency |
 |--------|-----------|--------|-----------|
