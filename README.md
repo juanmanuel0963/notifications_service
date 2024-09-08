@@ -2,9 +2,11 @@
 # Notifications service
 
 Execute the program in the command line
+
 \go run .
 
 Enter User: user1
+
 Enter TypeId: 1
 
 TypeId  Name        Window  Frequency
