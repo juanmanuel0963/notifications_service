@@ -1,13 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
 # Notifications service
 
-Execute the program in the command line
+Run the program in the command line executing the following
 
-\go run .
-
-Enter User: user1
-
-Enter TypeId: 1
+<pre> ```bash go run . Enter User: user1 Enter TypeId: 1 ``` </pre>
 
 | TypeId | Name      | Window | Frequency |
 |--------|-----------|--------|-----------|
