@@ -1,7 +1,7 @@
 package database
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/juanmanuel0963/notification_service/m/models"
 )
@@ -17,8 +17,7 @@ func PopulateDB() error {
 
 	if typesQuery.Error != nil {
 		// Error occurred during the query
-		fmt.Println("Types table not found.")
-		return typesQuery.Error
+		return errors.New("Types table not found. " + typesQuery.Error.Error())
 	}
 
 	// Check if the types table is empty
@@ -32,14 +31,10 @@ func PopulateDB() error {
 
 		// Create new entries in the types table
 		result := DB.Create(&newTypes)
+
 		if result.Error != nil {
-			fmt.Println("Error populating types table:", result.Error)
-			return result.Error
-		} else {
-			fmt.Println("Types table populated successfully.")
+			return errors.New("Error populating Types table: " + result.Error.Error())
 		}
-	} else {
-		fmt.Println("Types table already contains records.")
 	}
 
 	return nil

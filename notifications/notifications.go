@@ -10,20 +10,29 @@ import (
 	"github.com/juanmanuel0963/notification_service/m/types"
 )
 
-func SendNotification(newRecord models.Notification) error {
+func Send(user string, typeId int, message string) error {
 
-	// ---------- Populate notifications table ----------
-	var notificationsList = []models.Notification{
-		newRecord,
+	// Populate the newRecord with the user inputs
+	var newRecord = models.Notification{
+		Stamp:   time.Now().Format("2006-01-02 15:04:05"), // Format the current time as a string
+		User:    user,
+		Message: message,
+		TypeID:  typeId,
 	}
 
-	// Create new entry in the notifications table
-	result := database.DB.Create(&notificationsList)
-	if result.Error != nil {
-		return errors.New("Error adding entry into notifications table: " + result.Error.Error())
+	// Validate the set limits for the type of message and user are not surpassed yet
+	resultError := ValidateFrequencyLimits(newRecord)
+
+	if resultError != nil {
+		return resultError
 	}
 
-	//TODO: Send notification by email or sms
+	// We are able to send a new message if the current messages count is lower than the maximum frequency limit
+	resultError = SendNotification(newRecord)
+
+	if resultError != nil {
+		return resultError
+	}
 
 	return nil
 }
@@ -98,4 +107,20 @@ func GetNotificationsCount(User string, Window string, TypeId int) (int64, error
 	}
 
 	return count, nil
+}
+
+func SendNotification(newRecord models.Notification) error {
+	// ---------- Populate notifications table ----------
+	var notificationsList = []models.Notification{
+		newRecord,
+	}
+
+	// Create new entry in the notifications table
+	result := database.DB.Create(&notificationsList)
+	if result.Error != nil {
+		return errors.New("Error adding entry into notifications table: " + result.Error.Error())
+	}
+
+	//TODO: Send notification by email or sms
+	return nil
 }
